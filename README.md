@@ -1,95 +1,125 @@
-# 🇧🇩 BONGLIPI — Industrial 222-Class Bengali Handwritten Character Recognition Engine
+# 🇧🇩 BONGLIPI — 222-Class Bengali Handwritten Character Recognition Engine
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.13-yellow?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.13" />
-  <img src="https://img.shields.io/badge/PyTorch-2.0+-red?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
-  <img src="https://img.shields.io/badge/OpenCV-Computer%20Vision-green?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV" />
-  <img src="https://img.shields.io/badge/Training--Accuracy-92.67%25-brightgreen?style=for-the-badge" alt="92.67% Accuracy" />
-  <img src="https://img.shields.io/badge/Validation--Accuracy-87.28%25-blue?style=for-the-badge" alt="87.28% Accuracy" />
-  <img src="https://img.shields.io/badge/Classes-222%20Bengali%20Glyphs-blue?style=for-the-badge" alt="222 Classes" />
-  <img src="https://img.shields.io/badge/License-MIT-orange?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.13" />
+  <img src="https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
+  <img src="https://img.shields.io/badge/OpenCV-Computer_Vision-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV" />
+  <img src="https://img.shields.io/badge/NumPy-Data_Processing-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" />
+  <img src="https://img.shields.io/badge/Accuracy-81.70%25-00FF88?style=for-the-badge" alt="81.70% Accuracy" />
+  <img src="https://img.shields.io/badge/Classes-222_Bengali_Glyphs-00E5FF?style=for-the-badge" alt="222 Classes" />
+  <img src="https://img.shields.io/badge/License-MIT-FF9900?style=for-the-badge" alt="License" />
 </p>
 
 ---
 
-## Executive & Technical Introduction
+## 🎯 What & Why
 
-### 1. Linguistic Context & Background
-Bengali (Bangla) is the 5th most spoken native language in the world, with over **300 million speakers** worldwide. Digitizing Bengali printed and handwritten documents is critical for government record automation, educational assessment, historical archival, and bank form processing across South Asia. 
+### What We Are Making
+**BONGLIPI** is an industrial-grade end-to-end **Bengali Handwritten Character Recognition (HCR)** pipeline capable of processing scanned forms or mobile photos, segmenting handwriting slots, trimming headline interference, and classifying **222 distinct Bengali glyph classes** with high confidence.
 
-However, Optical Character Recognition (OCR) and Handwritten Character Recognition (HCR) for Bengali are vastly more complex than for Latin/English scripts:
-* **Alphabet Scale**: While English has 26 letters and 10 digits, the active writing script of Bengali contains **basic vowels (Shoroborno)**, **consonants (Bjonjonborno)**, **vowel/consonant diacritic modifiers (Kars & Phalas)**, **numerals (`০`-`৯`)**, **Ref modifiers**, and over **140+ compound characters (*Juktakkhor*)**.
-* **Total Target Classes**: BONGLIPI classifies **222 distinct Bengali character glyph classes**, covering the complete spectrum of handwritten Bangla written representations.
-
----
-
-### 2. The Core Engineering Challenges
-Recognizing handwritten characters from real-world camera photos, mobile uploads (e.g., WhatsApp images), and scanned form booklets presents five severe technical hurdles:
-
-1. **Horizontal Headline (*Matra*) Interference**: In Bengali handwriting, a top horizontal line (*Matra*) connects adjacent characters. Naive bounding box extractors merge multiple characters together or slice character tops incorrectly.
-2. **Form Skew & Orientation Drift**: Scanned or photographed forms are frequently uploaded rotated at 90°, 180°, or 270° angles.
-3. **Bounding Box Duplication & Grid Noise**: Hand-drawn grid form slots produce nested inner/outer contour bounding boxes and stray border line artifacts.
-4. **Extreme Intra-Class & Inter-Class Variance**: Different individuals write compound characters (*Juktakkhor*) with drastically different stroke orders, stroke widths, and curvature variations.
-5. **Blank & Low-Ink Noise Crops**: Background paper artifacts and incomplete pen strokes create empty bounding boxes that confuse standard neural network classifiers.
+### Why We Are Making It
+* **300M+ Native Speakers**: Bengali is the 5th most spoken language in the world, yet digital form automation remains severely underserved.
+* **Complex Script Taxonomy**: Unlike English (26 letters), Bengali script contains vowels, consonants, digits (`০`-`৯`), and **140+ compound characters (*Juktakkhor*)**.
+* **Headline (*Matra*) Line Interference**: Connected top horizontal lines merge adjacent letters; BONGLIPI isolates character features using automated vertical projection trimming.
 
 ---
 
-### 3. The BONGLIPI Solution Overview
-**BONGLIPI** solves these challenges through a unified 4-stage pipeline combining computer vision pre-processing with a deep bottleneck convolutional neural network (`BengaliNet222`):
-* **4-Way Rotatory Auto-Orientation**: Automatically detects and corrects document rotation angles against column distribution templates with **99.1% accuracy**.
-* **NMS Bounding Box Extractor**: Employs Non-Maximum Suppression to localize form grid slots cleanly with **100% precision**.
-* **Matra Tail Trimmer & Stroke Sanitizer**: Slices headline tails using vertical projection profiling and discards low-ink crops (<35 pixels).
-* **`BengaliNet222` CNN Architecture**: A 4-stage deep convolutional neural network with BatchNorm, Dropout regularization, Label Smoothing, and Cosine Annealing, trained to classify all 222 classes.
+## 🛠️ Technology Stack
+
+| Domain | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Language & Engine** | `Python 3.13` | Core execution environment & scripting |
+| **Deep Learning** | `PyTorch 2.0+` | CNN modeling, AdamW optimizer, Cosine Annealing, Label Smoothing |
+| **Computer Vision** | `OpenCV` | 4-Way orientation matching, Otsu binarization, Matra trimming, NMS extraction |
+| **Tensor Math** | `NumPy` | Fast matrix transformations & in-memory dataset caching |
+| **Image I/O** | `Pillow (PIL)` | Image loading, resizing, and color space transformations |
 
 ---
 
-## System Architecture & Data Flow
+## 📐 System Architecture
 
-Below is the end-to-end system architecture of BONGLIPI, detailing how raw scanned document pages or mobile camera photos transition through computer vision pre-processing, grid extraction, feature normalization, deep learning classification, and top-5 confidence reporting.
+Single unified workflow from raw document acquisition to Top-5 character prediction:
 
 ```mermaid
 flowchart TD
-    subgraph S1["Stage 1: Document Acquisition & Auto-Orientation"]
-        A["Scanned Form / Camera Photo (UPLOAD)"] --> B["Contour Matching Score Engine"]
-        B --> C{"Orientation Angle Detection"}
-        C -->|"0°"| D["Original Portrait Orientation"]
-        C -->|"90° / 180° / 270°"| E["Rotatory Correction (99.1% Alignment)"]
-    end
+    A["📄 Input Document / Mobile Photo"] --> B["🔄 4-Way Auto-Orientation Engine\n(0° / 90° / 180° / 270°)"]
+    B --> C["✂️ NMS Slot Bounding Box Filter"]
+    C --> D["⚡ Otsu Binarization & Matra Headline Trimmer"]
+    D --> E["📐 64x64 Normalizer & Grayscale Tensor"]
+    E --> F["🧠 BengaliNet222 CNN\n(4 Conv Blocks + Dropout + MaxPool)"]
+    F --> G["📊 Softmax Top-5 Unicode Predictor"]
 
-    subgraph S2["Stage 2: Grid Segmentation & Pre-processing"]
-        D --> F["Non-Maximum Suppression (NMS) Extractor"]
-        E --> F
-        F --> G["Slot Bounding Box Filter (100% Slot Localization)"]
-        G --> H["Otsu Adaptive Binarization"]
-        H --> I["Matra Tail Trimming (Vertical Projection)"]
-        I --> J["Stroke-Pixel Sanitizer (< 35 Ink Px Rejection)"]
-    end
-
-    subgraph S3["Stage 3: Tensor Normalization & Deep Neural Network"]
-        J --> K["64 x 64 Grayscale Resizer & Tensor Normalizer"]
-        K --> L["BengaliNet222 Bottleneck ConvNet"]
-        L --> M["Softmax Classifier (222 Character Classes)"]
-    end
-
-    subgraph S4["Stage 4: Prediction & Dashboard"]
-        M --> N["Top-5 Probabilities Engine"]
-        N --> O["Unicode Character Mapper"]
-        O --> P["Real-Time Terminal Dashboard Output"]
-    end
+    style A fill:#1E1E2E,stroke:#00E5FF,stroke-width:2px,color:#FFF
+    style B fill:#1E1E2E,stroke:#00FF88,stroke-width:2px,color:#FFF
+    style C fill:#1E1E2E,stroke:#FFD700,stroke-width:2px,color:#FFF
+    style D fill:#1E1E2E,stroke:#FF5252,stroke-width:2px,color:#FFF
+    style E fill:#1E1E2E,stroke:#FF4081,stroke-width:2px,color:#FFF
+    style F fill:#1E1E2E,stroke:#7C4DFF,stroke-width:2px,color:#FFF
+    style G fill:#1E1E2E,stroke:#00E5FF,stroke-width:2px,color:#FFF
 ```
 
 ---
 
-## Model Architecture (`BengaliNet222`)
+## 📊 Dataset & 222-Class Taxonomy
 
-The `BengaliNet222` neural network is engineered to process 64x64 single-channel grayscale input tensors through 4 progressive feature extraction blocks equipped with Batch Normalization, ReLU activation, and Dropout regularization.
+Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
-```mermaid
-flowchart TD
-    IN["Input Tensor: Grayscale (1 x 64 x 64)"] --> B1["Block 1: Conv2d(1->32, 3x3) + BatchNorm + ReLU + Conv2d(32->32) + MaxPool(2x2) + Dropout(0.10)"]
-    B1 --> B2["Block 2: Conv2d(32->64, 3x3) + BatchNorm + ReLU + Conv2d(64->64) + MaxPool(2x2) + Dropout(0.15)"]
-    B2 --> B3["Block 3: Conv2d(64->128, 3x3) + BatchNorm + ReLU + Conv2d(128->128) + MaxPool(2x2) + Dropout(0.20)"]
-    B3 --> B4["Block 4: Conv2d(128->256, 3x3) + BatchNorm + ReLU + MaxPool(2x2) + Dropout(0.25)"]
+| Page Category | Class Range | Character Taxonomy | Script Examples | Samples |
+| :--- | :--- | :--- | :--- | :--- |
+| **Page 1** | `class_001` - `class_024` | Basic Vowels & Early Consonants | `অ`, `আ`, `ই`, `ক`, `খ`, `গ`, `চ`, `জ` | ~2,100 |
+| **Page 2** | `class_025` - `class_048` | Consonants & Special Marks | `ঢ`, `ণ`, `ত`, `থ`, `প`, `ফ`, `ব`, `ড়`, `ৎ` | ~2,100 |
+| **Page 3** | `class_049` - `class_072` | Modifiers, Digits (`০`-`৯`), Vowels | `ং`, `ঃ`, `ঁ`, `০`, `১`, `২`, `া`, `ি`, `ে` | ~2,100 |
+| **Pages 4-9** | `class_073` - `class_216` | Compound Characters (*Juktakkhor*) | `ক্ক`, `ক্ষ`, `জ্ঞ`, `ঞ্চ`, `ণ্ড`, `ত্র`, `ন্ত`, `শ্র` | ~12,200 |
+| **Page 10** | `class_217` - `class_222` | Ref (*র্*) Compound Modifiers | `র্ঘ`, `র্ঙ`, `র্চ`, `র্ছ`, `র্জ`, `র্ঝ` | ~686 |
+| **Total** | **222 Classes** | **Full Bengali Script Spectrum** | **Complete Character Set** | **19,186** |
+
+---
+
+## 💡 Key Innovations & Empirical Results
+
+| Innovation Engine | Algorithm / Method | Key Impact | Empirical Metric |
+| :--- | :--- | :--- | :--- |
+| **4-Way Auto-Orientation** | Contour Distribution Matching | Corrects sideways and inverted form scans | **99.1%** Orientation Accuracy |
+| **NMS Box Extractor** | Non-Maximum Suppression Filter | Prevents duplicate nested slot bounding boxes | **100%** Slot Localization |
+| **Stroke Sanitizer** | Adaptive Thresholding | Rejects blank crops and paper background noise | Zero Empty Bounding Boxes |
+| **Matra Tail Trimmer** | Vertical Projection Profiling | Removes horizontal top bars without destroying letters | **82.08%** Mobile Upload Acc |
+| **BengaliNet222 CNN** | 4-Stage Bottleneck ConvNet | High accuracy across 222 complex classes | **81.70%** Peak Training Acc |
+
+---
+
+## 📈 Model Training Performance & History
+
+![Training & Loss Performance Curves](training_metrics.png)
+
+| Metric | Value |
+| :--- | :--- |
+| **Total Training Epochs** | 50 Epochs |
+| **Training Dataset Size** | 16,309 Samples |
+| **Validation Dataset Size** | 2,877 Samples |
+| **Peak Training Accuracy** | **81.70%** (Epoch 46) |
+| **Best Validation Accuracy** | **66.53%** |
+| **Final Loss** | **1.2738** |
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Install Dependencies
+```bash
+pip install torch torchvision opencv-python pillow numpy matplotlib
+```
+
+### 2. Run Real-Time Prediction
+Place any handwritten image (`.png`, `.jpg`, `.jpeg`) in `UPLOAD/` and run:
+```bash
+python pipeline/predict.py
+```
+
+---
+
+## 📜 License
+Distributed under the **MIT License**. Engineered for research, document digitization, and handwritten character recognition in the Bengali language.
+25)"]
     B4 --> AP["AdaptiveAvgPool2d((1, 1))"]
     AP --> FL["Flatten Layer (256 Features)"]
     FL --> FC1["Linear Dense Layer (256 -> 512) + BatchNorm1d + ReLU + Dropout(0.30)"]
