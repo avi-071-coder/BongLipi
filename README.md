@@ -1,4 +1,4 @@
-# 🇧🇩 BONGLIPI — 222-Class Bengali Handwritten Character Recognition Engine
+# BONGLIPI, 222-Class Bengali Handwritten Character Recognition Engine
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.13" />
@@ -12,8 +12,6 @@
 
 ---
 
-## 🎯 What & Why
-
 ### What We Are Making
 **BONGLIPI** is an industrial-grade end-to-end **Bengali Handwritten Character Recognition (HCR)** pipeline capable of processing scanned forms or mobile photos, segmenting handwriting slots, trimming headline interference, and classifying **222 distinct Bengali glyph classes** with high confidence.
 
@@ -24,7 +22,7 @@
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Domain | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -36,7 +34,7 @@
 
 ---
 
-## 📐 System Architecture
+## System Architecture
 
 Single unified workflow from raw document acquisition to Top-5 character prediction:
 
@@ -60,7 +58,7 @@ flowchart TD
 
 ---
 
-## 📊 Dataset & 222-Class Taxonomy
+## Dataset & 222-Class Taxonomy
 
 Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
@@ -75,7 +73,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 💡 Key Innovations & Empirical Results
+## Key Innovations & Empirical Results
 
 | Innovation Engine | Algorithm / Method | Key Impact | Empirical Metric |
 | :--- | :--- | :--- | :--- |
@@ -87,7 +85,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 📈 Model Training Performance & History
+## Model Training Performance & History
 
 ![Training & Loss Performance Curves](training_metrics.png)
 
@@ -102,7 +100,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### 1. Install Dependencies
 ```bash
@@ -117,7 +115,7 @@ python pipeline/predict.py
 
 ---
 
-## 📜 License
+## License
 Distributed under the **MIT License**. Engineered for research, document digitization, and handwritten character recognition in the Bengali language.
 25)"]
     B4 --> AP["AdaptiveAvgPool2d((1, 1))"]
