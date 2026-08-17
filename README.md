@@ -162,3 +162,5 @@ Distributed under the **MIT License**. Engineered for research, document digitiz
 <!-- Day 2: License notes -->
 
 <!-- Day 2: Metrics table notes -->
+
+<!-- Day 2: Polish -->
