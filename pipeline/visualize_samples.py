@@ -47,3 +47,5 @@ for cls_id in [0, 14, 19, 27, 43, 46, 62]:
         strip = np.hstack(row)
         cv2.imwrite(f"samples_class_{cls_id:03d}.jpg", strip)
         print(f"  class_{cls_id:03d} ({char}): {len(row)} samples")
+
+# Day 2: Preview grid notes
