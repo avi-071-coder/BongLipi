@@ -35,3 +35,5 @@ print(f"Multi-image pages: {multi_image_pages}")
 # Now check: each page is a form with ~22 handwritten boxes each
 # So total handwritten samples is pages * ~22
 print(f"\nEstimated handwritten character samples: {total_pages} pages × ~22 chars = ~{total_pages * 22}")
+
+# Day 2: Count helper notes
