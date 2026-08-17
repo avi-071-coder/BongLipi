@@ -18,3 +18,5 @@ ENV/
 Thumbs.db
 *.tmp
 *.log
+
+# Day 2: Gitignore rule
