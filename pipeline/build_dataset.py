@@ -347,3 +347,5 @@ def build_dataset_222(src_dir="extracted_pages", output_dir="DATASET"):
 
 if __name__ == "__main__":
     build_dataset_222()
+
+# Day 2: Cache notes
