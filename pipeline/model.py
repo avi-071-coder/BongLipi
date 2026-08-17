@@ -223,3 +223,5 @@ if __name__ == "__main__":
         x = torch.randn(4, 1, 64, 64)
         y = model(x)
         print(f"{name}: {model.count_params():,} params | Output: {y.shape}")
+
+# Day 2: Model comments
