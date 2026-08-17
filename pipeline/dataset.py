@@ -188,3 +188,5 @@ if __name__ == "__main__":
         break
 
 # Day 2: Dataset docs
+
+# Day 2: Normalization notes
