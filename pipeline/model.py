@@ -225,3 +225,5 @@ if __name__ == "__main__":
         print(f"{name}: {model.count_params():,} params | Output: {y.shape}")
 
 # Day 2: Model comments
+
+# Day 2: Dropout annotations
