@@ -112,3 +112,5 @@ box_counts = list(results.values())
 print(f"\nBox detection summary:")
 print(f"  Min: {min(box_counts)}, Max: {max(box_counts)}, Mean: {np.mean(box_counts):.1f}")
 print(f"  Distribution: {sorted(set(box_counts))}")
+
+# Day 2: Contour notes
