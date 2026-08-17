@@ -219,3 +219,5 @@ def train_model(epochs=50, batch_size=128, lr=2.5e-3):
 
 if __name__ == "__main__":
     train_model(epochs=50, batch_size=128, lr=2.5e-3)
+
+# Day 2: Logging annotations
