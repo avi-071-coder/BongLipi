@@ -186,3 +186,5 @@ if __name__ == "__main__":
         print(f"Label range: {batch_labels.min()} - {batch_labels.max()}")
         print(f"Pixel range: {batch_imgs.min():.2f} - {batch_imgs.max():.2f}")
         break
+
+# Day 2: Dataset docs
