@@ -25,3 +25,5 @@ for pdf_dir in sorted(EXTRACTED.iterdir()):
     print(f"{pdf_dir.name}: {len(pages)} pages")
     for i, (w, h, orient) in enumerate(dims):
         print(f"  Page {i+1}: {w}x{h} ({orient})")
+
+# Day 2: Dims check notes
