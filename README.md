@@ -1,4 +1,4 @@
-# BONGLIPI — 222-Class Bengali Handwritten Character Recognition Engine
+# BONGLIPI, 222-Class Bengali Handwritten Character Recognition Engine
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.13" />
@@ -12,12 +12,10 @@
 
 ---
 
-## What & Why
-
-### What We Are Making
+### What Is BongLipi
 **BONGLIPI** is an industrial-grade end-to-end **Bengali Handwritten Character Recognition (HCR)** pipeline capable of processing scanned forms or mobile photos, segmenting handwriting slots, trimming headline interference, and classifying **222 distinct Bengali glyph classes** with high confidence.
 
-### Why We Are Making It
+### Why This Project Matters
 * **300M+ Native Speakers**: Bengali is the 5th most spoken language in the world, yet digital form automation remains severely underserved.
 * **Complex Script Taxonomy**: Unlike English (26 letters), Bengali script contains vowels, consonants, digits (`০`-`৯`), and **140+ compound characters (*Juktakkhor*)**.
 * **Headline (*Matra*) Line Interference**: Connected top horizontal lines merge adjacent letters; BONGLIPI isolates character features using automated vertical projection trimming.
