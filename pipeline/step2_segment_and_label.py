@@ -274,3 +274,5 @@ def run():
 
 if __name__ == "__main__":
     run()
+
+# Day 2: NMS notes
