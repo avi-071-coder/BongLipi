@@ -1,4 +1,4 @@
-# 🇧🇩 BONGLIPI — 222-Class Bengali Handwritten Character Recognition Engine
+# BONGLIPI — 222-Class Bengali Handwritten Character Recognition Engine
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.13" />
@@ -12,7 +12,7 @@
 
 ---
 
-## 🎯 What & Why
+## What & Why
 
 ### What We Are Making
 **BONGLIPI** is an industrial-grade end-to-end **Bengali Handwritten Character Recognition (HCR)** pipeline capable of processing scanned forms or mobile photos, segmenting handwriting slots, trimming headline interference, and classifying **222 distinct Bengali glyph classes** with high confidence.
@@ -24,7 +24,7 @@
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Domain | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -36,54 +36,13 @@
 
 ---
 
-## 📐 System Architecture & Data Flow
+## System Architecture & Data Flow
 
-Below is the complete 4-stage end-to-end system architecture of BONGLIPI, detailing how document acquisition, pre-processing, grid extraction, CNN classification, and real-time prediction output interface together:
-
-```mermaid
-flowchart TD
-    subgraph S1["Stage 1: Document Acquisition & Auto-Orientation"]
-        A["A<br>Scanned Form / Camera Photo (UPLOAD)"] --> B["B<br>Contour Matching Score Engine"]
-        B --> C{"C<br>Orientation Angle Detection"}
-        C -->|"0°"| D["D<br>Original Portrait Orientation"]
-        C -->|"90°/180°/270°"| E["E<br>Rotatory Correction (99.1% Alignment)"]
-    end
-
-    subgraph S2["Stage 2: Grid Segmentation & Pre-processing"]
-        D --> F["F<br>Non-Maximum Suppression (NMS) Extractor"]
-        E --> F
-        F --> G["G<br>Slot Bounding Box Filter (100% Slot Localization)"]
-        G --> H["H<br>Otsu Adaptive Binarization"]
-        H --> I["I<br>Matra Tail Trimming (Vertical Projection)"]
-        I --> J["J<br>Stroke-Pixel Sanitizer (< 35 Ink Px Rejection)"]
-    end
-
-    J --> K["K<br>64 x 64 Grayscale Resizer & Tensor Normalizer"]
-
-    subgraph S3["Stage 3: Tensor Normalization & Deep Neural Network (Expanded)"]
-        IN["[IN]<br>Input Tensor: Grayscale (1 x 64 x 64)"] --> B1["[B1]<br>Block 1:<br>Conv2d(1->32, 3x3) + BatchNorm + ReLU<br>+ Conv2d(32->32) + MaxPool(2x2)<br>+ Dropout(0.10)"]
-        B1 --> B2["[B2]<br>Block 2:<br>Conv2d(32->64, 3x3) + BatchNorm + ReLU<br>+ Conv2d(64->64) + MaxPool(2x2)<br>+ Dropout(0.15)"]
-        B2 --> B3["[B3]<br>Block 4:<br>Conv2d(128->256, 3x3) + BatchNorm<br>+ ReLU + Conv2d(128->128)<br>+ MaxPool(2x2) + Dropout(0.20)"]
-        B3 --> AP["AP<br>AdaptiveAvgPool2d((1, 1))"]
-        AP --> FL["FL<br>Flatten Layer (256 Features)"]
-        FL --> FC1["FC1<br>Linear Dense Layer (256 -> 512)<br>+ BatchNorm1d + ReLU + Dropout(0.30)"]
-        FC1 --> FC2["FC2<br>Linear Output Layer (512 -> 222 Classes)"]
-        FC2 --> OUT["[OUT]<br>Softmax Output (222 Probabilities)"]
-    end
-
-    K --> IN
-
-    subgraph S4["Stage 4: Prediction & Dashboard"]
-        N["N<br>Top-5 Probabilities Engine"] --> O["O<br>Unicode Character Mapper"]
-        O --> P["P<br>Real-Time Terminal Dashboard Output"]
-    end
-
-    OUT --> N
-```
+![System Architecture & Data Flow](architecture_diagram.png)
 
 ---
 
-## 📊 Dataset & 222-Class Taxonomy
+## Dataset & 222-Class Taxonomy
 
 Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
@@ -98,7 +57,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 💡 Key Innovations & Empirical Results
+## Key Innovations & Empirical Results
 
 | Innovation Engine | Algorithm / Method | Key Impact | Empirical Metric |
 | :--- | :--- | :--- | :--- |
@@ -110,7 +69,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 📈 Model Training Performance & History
+## Model Training Performance & History
 
 ![Training & Loss Performance Curves](training_metrics.png)
 
@@ -125,7 +84,7 @@ Total Dataset Volume: **19,186 Handwritten Samples** across 10 form categories.
 
 ---
 
-## 🚀 Quick Start & Real-Time Inference Guide
+## Quick Start & Real-Time Inference Guide
 
 ### 1. Install Dependencies
 ```bash
@@ -140,12 +99,12 @@ python pipeline/predict.py
 
 ### 3. Example Terminal Output
 ```text
-=======================================================
+======================================================
          BONGLIPI - BENGALI HCR PREDICTION RESULTS      
-=======================================================
+======================================================
 
  Image File: sample_character_test.png
--------------------------------------------------------
+------------------------------------------------------
  PREDICTED CHARACTER : 'অ'  (class_001)
  CONFIDENCE SCORE    : 90.11%
 
@@ -155,10 +114,10 @@ python pipeline/predict.py
    #3 | 'জ' (class_019) :   0.71%  
    #4 | 'স' (class_043) :   0.61%  
    #5 | 'ত' (class_027) :   0.58%  
-=======================================================
+======================================================
 ```
 
 ---
 
-## 📜 License & Citation
+## License & Citation
 Distributed under the **MIT License**. Engineered for research, document digitization, and handwritten character recognition in the Bengali language.
