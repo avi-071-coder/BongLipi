@@ -158,3 +158,5 @@ python pipeline/predict.py
 Distributed under the **MIT License**. Engineered for research, document digitization, and handwritten character recognition in the Bengali language.
 
 <!-- Day 2: Quick start update -->
+
+<!-- Day 2: License notes -->
