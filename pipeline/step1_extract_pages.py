@@ -51,3 +51,5 @@ for pdf_file in sorted(OG_DIR.glob("*.pdf")):
 print(f"\n{'='*50}")
 print(f"TOTAL PAGES ACROSS ALL PDFs: {total_pages}")
 print(f"TOTAL IMAGES EXTRACTED: {total_images}")
+
+# Day 2: Page extract notes
