@@ -201,3 +201,5 @@ if __name__ == "__main__":
     main()
 
 # Day 2: Added type hints
+
+# Day 2: Top-5 docstring
